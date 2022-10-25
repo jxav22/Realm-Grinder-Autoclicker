@@ -49,8 +49,8 @@ upgradeExchange:
 
 	; Click individual upgrades
 	For i in range(6) {
-		; Skip the Elven upgrade
-		if (i == 1) {
+		; Skip the Angel upgrade
+		if (i == 2) {
 			upgradeYPosition += distanceToNextUpgrade
 			continue
 		}
@@ -65,6 +65,11 @@ upgradeExchange:
 	Click(790, 120)
 	Sleep, 50
 return
+
+spellCycle:
+return
+
+cast
 
 ; Main code
 isProgramStarted := false
