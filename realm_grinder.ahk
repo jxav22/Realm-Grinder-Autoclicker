@@ -1,5 +1,5 @@
 ; Preferences
-CLICK_DELAY_RATE := 10 ; Delay between clicks in miliseconds
+CLICK_DELAY_RATE := 100 ; Delay between clicks in miliseconds
 
 ; Repeating subroutine for clicking
 startAutoClicker:
@@ -13,8 +13,6 @@ F12::
 	isProgramStarted := !isProgramStarted
 
 	if isProgramStarted {
-		MsgBox, Started
-
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
 	} else {
 		SetTimer, startAutoClicker, Off
