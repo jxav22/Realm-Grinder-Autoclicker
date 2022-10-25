@@ -1,3 +1,4 @@
+#SingleInstance Force
 #Include range.ahk
 
 ; Preferences
@@ -6,14 +7,18 @@ UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
 UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between getting the token exchange upgrades
 
 ; Repeating subroutines for performing clicks
+Click(X, Y){
+	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
+}
+
 startAutoClicker:
-	ControlClick, X600 Y400, ahk_exe RealmGrinderDesktop.exe
+	Click(600, 400)
 return
 
 upgradeAll:
 	; Click BUY ALL
 	Sleep, 50
-	ControlClick, X310 Y90, ahk_exe RealmGrinderDesktop.exe
+	Click(310, 90)
 
 	; Location of the bottom most upgrade
 	upgradeXPosition := 800
@@ -24,7 +29,7 @@ upgradeAll:
 	; Click individual upgrades
 	For i in range(8) {
 		Sleep, 50
-		ControlClick, X%upgradeXPosition% Y%upgradeYPosition%, ahk_exe RealmGrinderDesktop.exe
+		Click(upgradeXPosition, upgradeYPosition)
 		upgradeYPosition -= distanceToNextUpgrade
 		Sleep, 50
 	}
@@ -33,7 +38,7 @@ return
 upgradeExchange:
 	Sleep, 100
 	; open exchange
-	ControlClick, X130 Y180, ahk_exe RealmGrinderDesktop.exe,,,, NA
+	Click(130, 180)
 	Sleep, 100
 
 	; Location of the top most upgrade
@@ -51,13 +56,13 @@ upgradeExchange:
 		}
 
 		Sleep, 50
-		ControlClick, X%upgradeXPosition% Y%upgradeYPosition%, ahk_exe RealmGrinderDesktop.exe
+		Click(upgradeXPosition, upgradeYPosition)
 		upgradeYPosition += distanceToNextUpgrade
 		Sleep, 50
 	}
 
 	; close exchange
-	ControlClick, X790 Y120, ahk_exe RealmGrinderDesktop.exe
+	Click(790, 120)
 	Sleep, 50
 return
 
