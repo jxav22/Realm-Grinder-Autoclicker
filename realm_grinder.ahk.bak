@@ -17,9 +17,7 @@ Click(X, Y){
 
 CastSpell(spellSlot, amount := 1){
 	for i in range(amount){
-		Sleep, 50
 		ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
-		Sleep, 50
 	}
 }
 
@@ -36,10 +34,19 @@ BuyBuildingUpgrade(upgradeSlot){
 	Click(upgradeXPosition, upgradeYPosition)
 }
 
+
+DisplayToolTip(text, duration := 1000){
+	ToolTip, %text%
+	Sleep, %duration%
+	ToolTip
+}
+
 ; The spell combo
 spellCycle:
 	; Cast Tax Collection
+	Sleep, 50
 	CastSpell(1, 3)
+	Sleep, 50
 return
 
 startAutoClicker:
@@ -53,9 +60,9 @@ upgradeAll:
 	Sleep, 50
 
 	for i in range(10, 3, -1){
-		Sleep, 50
+		Sleep, 100
 		BuyBuildingUpgrade(i)
-		Sleep, 50
+		Sleep, 100
 	}
 return
 
@@ -97,7 +104,7 @@ F12::
 	isProgramStarted := !isProgramStarted
 
 	if isProgramStarted {
-		MsgBox, Started
+		DisplayToolTip("STARTED MAIN SCRIPT")
 
 		; Set up everything
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
@@ -111,7 +118,7 @@ F12::
 		SetTimer, upgradeExchange, Off
 		SetTimer, spellCycle, Off
 
-		MsgBox, Stopped
+		DisplayToolTip("STOPPED MAIN SCRIPT")
 	}
 return
 
