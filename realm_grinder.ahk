@@ -84,4 +84,3 @@ return
 F11::gosub, upgradeAll
 
 F10::gosub, upgradeExchange
-F9:: ControlClick, X130 Y180, ahk_exe RealmGrinderDesktop.exe,,,, NA
