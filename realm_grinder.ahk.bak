@@ -120,7 +120,6 @@ F12::
 		SetTimer, startAutoClicker, Off
 		SetTimer, upgradeAll, Off
 		SetTimer, upgradeExchange, Off
-		SetTimer, spellCycle, Off
 
 		DisplayToolTip("STOPPED AUTO")
 	}
