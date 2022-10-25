@@ -11,7 +11,7 @@ MAX_MANA_CAPACITY := 1269
 
 MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 
-; Code starts here
+; Program code starts here
 Click(X, Y){
 	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
 }

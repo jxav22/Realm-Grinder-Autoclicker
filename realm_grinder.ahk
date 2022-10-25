@@ -46,7 +46,6 @@ BuyExchangeTokenUpgrade(upgradeSlot){
 
 	; Buy upgrade
 	Click(upgradeXPosition, upgradeYPosition)
-	upgradeYPosition += distanceToNextUpgrade
 }
 
 DisplayToolTip(text, duration := 1000){
