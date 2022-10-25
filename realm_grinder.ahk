@@ -66,11 +66,6 @@ upgradeExchange:
 	Sleep, 50
 return
 
-spellCycle:
-return
-
-cast
-
 ; Main code
 isProgramStarted := false
 

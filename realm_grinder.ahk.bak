@@ -50,7 +50,7 @@ upgradeExchange:
 	; Click individual upgrades
 	For i in range(6) {
 		; Skip the Angel upgrade
-		if (i == 1) {
+		if (i == 2) {
 			upgradeYPosition += distanceToNextUpgrade
 			continue
 		}
