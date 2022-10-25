@@ -30,13 +30,34 @@ upgradeAll:
 return
 
 upgradeExchange:
-	Sleep, 1000
+	Sleep, 100
 	; open exchange
 	ControlClick, X130 Y180, ahk_exe RealmGrinderDesktop.exe
-	Sleep, 1000
+	Sleep, 100
+
+	; Location of the top most upgrade
+	upgradeXPosition := 720
+	upgradeYPosition := 250
+
+	distanceToNextUpgrade := 50
+
+	; Click individual building upgrades
+	For i in range(6) {
+		; Skip the Elven upgrade
+		if (i == 1) {
+			upgradeYPosition += distanceToNextUpgrade
+			continue
+		}
+
+		Sleep, 50
+		ControlClick, X%upgradeXPosition% Y%upgradeYPosition%, ahk_exe RealmGrinderDesktop.exe
+		upgradeYPosition += distanceToNextUpgrade
+		Sleep, 50
+	}
+
 	; close exchange
 	ControlClick, X790 Y120, ahk_exe RealmGrinderDesktop.exe
-	Sleep, 1000
+	Sleep, 50
 return
 
 ; Main code
