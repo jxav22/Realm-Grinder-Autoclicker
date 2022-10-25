@@ -3,7 +3,7 @@
 ; Preferences
 CLICK_DELAY_RATE := 100 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
-UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between upgrading the exchange token screen
+UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between getting the token exchange upgrades
 
 ; Repeating subroutines for performing clicks
 startAutoClicker:
@@ -21,7 +21,7 @@ upgradeAll:
 
 	distanceToNextUpgrade := 50
 
-	; Click individual building upgrades
+	; Click individual upgrades
 	For i in range(8) {
 		Sleep, 50
 		ControlClick, X%upgradeXPosition% Y%upgradeYPosition%, ahk_exe RealmGrinderDesktop.exe
@@ -42,7 +42,7 @@ upgradeExchange:
 
 	distanceToNextUpgrade := 50
 
-	; Click individual building upgrades
+	; Click individual upgrades
 	For i in range(6) {
 		; Skip the Elven upgrade
 		if (i == 1) {
