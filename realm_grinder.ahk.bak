@@ -23,6 +23,19 @@ CastSpell(spellSlot, amount := 1){
 	}
 }
 
+BuyBuildingUpgrade(upgradeSlot){
+	; Location of the top most building upgrade
+	buildingUpgradePosition := {"X": 1200, "Y": 50}
+	distanceToNextBuildingUpgrade := 60
+
+	; Location of the upgrade
+	upgradeXPosition := buildingUpgradePosition["X"]
+	upgradeYPosition := buildingUpgradePosition["Y"] + (distanceToNextBuildingUpgrade * upgradeSlot)
+
+	; Buy upgrade
+	Click(upgradeXPosition, upgradeYPosition)
+}
+
 ; The spell combo
 spellCycle:
 	; Cast Tax Collection
@@ -37,19 +50,13 @@ upgradeAll:
 	; Click BUY ALL
 	Sleep, 50
 	Click(310, 90)
+	Sleep, 50
 
-	; Location of the bottom most upgrade
-	upgradeXPosition := 1200
-	upgradeYPosition := 685
-
-	distanceToNextUpgrade := 50
-
-	; Click individual upgrades
-	For i in range(9) {
-		Sleep, 50
-		Click(upgradeXPosition, upgradeYPosition)
-		upgradeYPosition -= distanceToNextUpgrade
-		Sleep, 50
+	for i in range(10, 3, -1){
+		ToolTip, %i%
+		Sleep, 500
+		BuyBuildingUpgrade(i)
+		Sleep, 500
 	}
 return
 
@@ -96,8 +103,8 @@ F12::
 		; Set up everything
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
 		SetTimer, upgradeAll, %UPGRADE_ALL_DELAY_RATE%
-		SetTimer, upgradeExchange, %UPGRADE_EXCHANGE_DELAY_RATE%, 1
-		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 2
+		SetTimer, upgradeExchange, %UPGRADE_EXCHANGE_DELAY_RATE%, 2
+		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 1
 	} else {
 		; Shut down everything
 		SetTimer, startAutoClicker, Off

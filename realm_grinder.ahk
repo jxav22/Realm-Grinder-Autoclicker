@@ -23,6 +23,19 @@ CastSpell(spellSlot, amount := 1){
 	}
 }
 
+BuyBuildingUpgrade(upgradeSlot){
+	; Location of the top most building upgrade
+	buildingUpgradePosition := {"X": 1200, "Y": 50}
+	distanceToNextBuildingUpgrade := 60
+
+	; Location of the upgrade
+	upgradeXPosition := buildingUpgradePosition["X"]
+	upgradeYPosition := buildingUpgradePosition["Y"] + (distanceToNextBuildingUpgrade * upgradeSlot)
+
+	; Buy upgrade
+	Click(upgradeXPosition, upgradeYPosition)
+}
+
 ; The spell combo
 spellCycle:
 	; Cast Tax Collection
@@ -37,18 +50,11 @@ upgradeAll:
 	; Click BUY ALL
 	Sleep, 50
 	Click(310, 90)
+	Sleep, 50
 
-	; Location of the bottom most upgrade
-	upgradeXPosition := 1200
-	upgradeYPosition := 685
-
-	distanceToNextUpgrade := 50
-
-	; Click individual upgrades
-	For i in range(9) {
+	for i in range(10, 3, -1){
 		Sleep, 50
-		Click(upgradeXPosition, upgradeYPosition)
-		upgradeYPosition -= distanceToNextUpgrade
+		BuyBuildingUpgrade(i)
 		Sleep, 50
 	}
 return
