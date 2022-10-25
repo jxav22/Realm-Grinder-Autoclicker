@@ -6,14 +6,28 @@ CLICK_DELAY_RATE := 100 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
 UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between getting the token exchange upgrades
 
-MANA_RECHARGE_RATE := 70.66
-MAX_MANA_CAPACITY := 4411
+MANA_RECHARGE_RATE := 21.1
+MAX_MANA_CAPACITY := 1269
 
 MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 ; Repeating subroutines for performing clicks
 Click(X, Y){
 	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
 }
+
+CastSpell(spellSlot, amount := 1){
+	for i in range(amount){
+		Sleep, 50
+		ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
+		Sleep, 50
+	}
+}
+
+; The spell combo
+spellCycle:
+	; Cast Tax Collection
+	CastSpell(1, 3)
+return
 
 startAutoClicker:
 	Click(800, 500)
@@ -54,7 +68,7 @@ upgradeExchange:
 	; Click individual upgrades
 	For i in range(6) {
 		; Skip the Angel upgrade
-		if (i == 2) {
+		if (i == 0) {
 			upgradeYPosition += distanceToNextUpgrade
 			continue
 		}
@@ -68,26 +82,6 @@ upgradeExchange:
 	; close exchange
 	Click(970, 180)
 	Sleep, 50
-return
-
-; The spell combo
-spellCycle:
-	; Cast Call to Arms
-	Sleep, 50
-	Click(1000, 230)
-	Sleep, 50
-
-	; Cast God's Hand
-	Sleep, 50
-	Click(1000, 330)
-	Sleep, 50
-
-	; Spam Cast Tax Collection
-	for i in range(33){
-		Sleep, 50
-		Click(1000, 180)
-		Sleep, 50
-	}
 return
 
 ; Main code
