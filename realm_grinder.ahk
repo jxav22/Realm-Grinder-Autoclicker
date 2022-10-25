@@ -54,11 +54,11 @@ DisplayToolTip(text, duration := 1000){
 	ToolTip
 }
 
-; The spell combo
+; casts this cycle of spells every time mana recharges to full
 spellCycle:
-	; Cast Tax Collection
+	; cast Fairy Chanting
 	Sleep, 50
-	CastSpell(1, 3)
+	CastSpell(4)
 	Sleep, 50
 return
 
@@ -67,7 +67,7 @@ startAutoClicker:
 return
 
 upgradeAll:
-	; Click BUY ALL
+	; click BUY ALL
 	Sleep, 50
 	Click(310, 90)
 	Sleep, 50
@@ -81,8 +81,8 @@ upgradeAll:
 return
 
 upgradeExchange:
-	Sleep, 100
 	; open exchange
+	Sleep, 100
 	Click(130, 180)
 
 	; get the upgrades individually
@@ -108,7 +108,7 @@ F12::
 	isProgramStarted := !isProgramStarted
 
 	if isProgramStarted {
-		DisplayToolTip("STARTED MAIN SCRIPT")
+		DisplayToolTip("STARTED AUTOMATIC GAME MANAGEMENT")
 
 		; Set up everything
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
@@ -122,12 +122,21 @@ F12::
 		SetTimer, upgradeExchange, Off
 		SetTimer, spellCycle, Off
 
-		DisplayToolTip("STOPPED MAIN SCRIPT")
+		DisplayToolTip("STOPPED AUTOMATIC GAME MANAGEMENT")
 	}
 return
 
-F11::gosub, upgradeAll
+F11::
+	DisplayToolTip("PURCHASING UPGRADES...", 500)
+	gosub, upgradeAll
+return
 
-F10::gosub, upgradeExchange
+F10::
+	DisplayToolTip("UPGRADING TOKENS...", 500)
+	gosub, upgradeExchange
+return
 
-F9::gosub, spellCycle
+F9::
+	DisplayToolTip("RUNNING SPELLS...", 500)
+	gosub, spellCycle
+return
