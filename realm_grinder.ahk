@@ -16,7 +16,7 @@ Click(X, Y){
 }
 
 startAutoClicker:
-	Click(600, 400)
+	Click(800, 500)
 return
 
 upgradeAll:
@@ -25,8 +25,8 @@ upgradeAll:
 	Click(310, 90)
 
 	; Location of the bottom most upgrade
-	upgradeXPosition := 800
-	upgradeYPosition := 595
+	upgradeXPosition := 1200
+	upgradeYPosition := 685
 
 	distanceToNextUpgrade := 50
 
@@ -46,8 +46,8 @@ upgradeExchange:
 	Sleep, 100
 
 	; Location of the top most upgrade
-	upgradeXPosition := 720
-	upgradeYPosition := 250
+	upgradeXPosition := 880
+	upgradeYPosition := 300
 
 	distanceToNextUpgrade := 50
 
@@ -74,18 +74,18 @@ return
 spellCycle:
 	; Cast Holy Light
 	Sleep, 50
-	Click(690, 265)
+	Click(1000, 280)
 	Sleep, 50
 
 	; Cast God's Hand
 	Sleep, 50
-	Click(690, 315)
+	Click(1000, 330)
 	Sleep, 50
 
 	; Spam Cast Tax Collection
 	for i in range(33){
 		Sleep, 50
-		Click(690, 165)
+		Click(1000, 180)
 		Sleep, 50
 	}
 return
