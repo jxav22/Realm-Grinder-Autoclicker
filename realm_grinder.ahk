@@ -29,6 +29,16 @@ upgradeAll:
 	}
 return
 
+upgradeExchange:
+	Sleep, 1000
+	; open exchange
+	ControlClick, X130 Y180, ahk_exe RealmGrinderDesktop.exe
+	Sleep, 1000
+	; close exchange
+	ControlClick, X790 Y120, ahk_exe RealmGrinderDesktop.exe
+	Sleep, 1000
+return
+
 ; Main code
 isProgramStarted := false
 
@@ -51,3 +61,5 @@ F12::
 return
 
 F11::gosub, upgradeAll
+
+F10::gosub, upgradeExchange
