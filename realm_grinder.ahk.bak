@@ -4,7 +4,7 @@
 CLICK_DELAY_RATE := 100 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
 
-; Repeating subroutines
+; Repeating subroutines for performing clicks
 startAutoClicker:
 	ControlClick, X600 Y400, ahk_exe RealmGrinderDesktop.exe
 return

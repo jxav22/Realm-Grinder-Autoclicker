@@ -15,16 +15,16 @@ upgradeAll:
 	ControlClick, X310 Y90, ahk_exe RealmGrinderDesktop.exe
 
 	; Location of the bottom most upgrade
-	upgradeXLocation := 800
-	upgradeYLocation := 595
+	upgradeXPosition := 800
+	upgradeYPosition := 595
 
 	distanceToNextUpgrade := 50
 
 	; Click individual building upgrades
 	For i in range(8) {
 		Sleep, 50
-		ControlClick, X%upgradeXLocation% Y%upgradeYLocation%, ahk_exe RealmGrinderDesktop.exe
-		upgradeYLocation -= distanceToNextUpgrade
+		ControlClick, X%upgradeXPosition% Y%upgradeYPosition%, ahk_exe RealmGrinderDesktop.exe
+		upgradeYPosition -= distanceToNextUpgrade
 		Sleep, 50
 	}
 return
