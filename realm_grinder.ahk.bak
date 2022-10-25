@@ -66,11 +66,6 @@ upgradeExchange:
 	Sleep, 50
 return
 
-spellCycle:
-return
-
-cast
-
 ; Main code
 isProgramStarted := false
 
@@ -94,6 +89,28 @@ F12::
 	}
 return
 
+; The spell combo
+spellCycle:
+	; Cast Holy Light
+	Sleep, 50
+	Click(690, 265)
+	Sleep, 50
+
+	; Cast God's Hand
+	Sleep, 50
+	Click(690, 315)
+	Sleep, 50
+
+	; Spam Cast Tax Collection
+	for i in range(30){
+		Sleep, 50
+		Click(690, 165)
+		Sleep, 50
+	}
+return
+
 F11::gosub, upgradeAll
 
 F10::gosub, upgradeExchange
+
+F9::gosub, spellCycle
