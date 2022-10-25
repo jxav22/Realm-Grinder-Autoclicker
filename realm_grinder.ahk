@@ -6,6 +6,10 @@ CLICK_DELAY_RATE := 100 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
 UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between getting the token exchange upgrades
 
+MANA_RECHARGE_RATE := 60.17
+MAX_MANA_CAPACITY := 4207
+
+MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 ; Repeating subroutines for performing clicks
 Click(X, Y){
 	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
@@ -66,29 +70,6 @@ upgradeExchange:
 	Sleep, 50
 return
 
-; Main code
-isProgramStarted := false
-
-F12::
-	isProgramStarted := !isProgramStarted
-
-	if isProgramStarted {
-		MsgBox, Started
-
-		; Set up everything
-		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
-		SetTimer, upgradeAll, %UPGRADE_ALL_DELAY_RATE%
-		SetTimer, upgradeExchange, %UPGRADE_EXCHANGE_DELAY_RATE%, 1
-	} else {
-		; Shut down everything
-		SetTimer, startAutoClicker, Off
-		SetTimer, upgradeAll, Off
-		SetTimer, upgradeExchange, Off
-
-		MsgBox, Stopped
-	}
-return
-
 ; The spell combo
 spellCycle:
 	; Cast Holy Light
@@ -102,10 +83,35 @@ spellCycle:
 	Sleep, 50
 
 	; Spam Cast Tax Collection
-	for i in range(30){
+	for i in range(33){
 		Sleep, 50
 		Click(690, 165)
 		Sleep, 50
+	}
+return
+
+; Main code
+isProgramStarted := false
+
+F12::
+	isProgramStarted := !isProgramStarted
+
+	if isProgramStarted {
+		MsgBox, Started
+
+		; Set up everything
+		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
+		SetTimer, upgradeAll, %UPGRADE_ALL_DELAY_RATE%
+		SetTimer, upgradeExchange, %UPGRADE_EXCHANGE_DELAY_RATE%, 1
+		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 2
+	} else {
+		; Shut down everything
+		SetTimer, startAutoClicker, Off
+		SetTimer, upgradeAll, Off
+		SetTimer, upgradeExchange, Off
+		SetTimer, spellCycle, Off
+
+		MsgBox, Stopped
 	}
 return
 
