@@ -46,3 +46,5 @@ F12::
 		MsgBox, Stopped
 	}
 return
+
+F11::gosub, upgradeAll

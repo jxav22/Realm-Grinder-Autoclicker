@@ -2,7 +2,7 @@
 
 ; Preferences
 CLICK_DELAY_RATE := 100 ; Delay between clicks in miliseconds
-UPGRADE_ALL_DELAY_RATE := 60000 ; Delay between upgrading everything
+UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
 
 ; Repeating subroutine for clicking
 startAutoClicker:
@@ -46,3 +46,5 @@ F12::
 		MsgBox, Stopped
 	}
 return
+
+F11::gosub, upgradeAll
