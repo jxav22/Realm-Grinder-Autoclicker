@@ -66,7 +66,7 @@ upgradeExchange:
 	}
 
 	; close exchange
-	Click(790, 120)
+	Click(970, 180)
 	Sleep, 50
 return
 

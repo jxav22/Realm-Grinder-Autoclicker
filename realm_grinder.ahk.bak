@@ -16,7 +16,7 @@ Click(X, Y){
 }
 
 startAutoClicker:
-	Click(600, 400)
+	Click(800, 500)
 return
 
 upgradeAll:
