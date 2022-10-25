@@ -10,7 +10,8 @@ MANA_RECHARGE_RATE := 21.1
 MAX_MANA_CAPACITY := 1269
 
 MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
-; Repeating subroutines for performing clicks
+
+; Program code starts here
 Click(X, Y){
 	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
 }
@@ -72,6 +73,7 @@ upgradeAll:
 	Click(310, 90)
 	Sleep, 50
 
+	; get the upgrades individually
 	for i in range(10, 3, -1){
 		Sleep, 100
 		BuyBuildingUpgrade(i)
