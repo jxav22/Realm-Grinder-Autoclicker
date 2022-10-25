@@ -3,6 +3,7 @@
 ; Preferences
 CLICK_DELAY_RATE := 100 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
+UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between upgrading the exchange token screen
 
 ; Repeating subroutines for performing clicks
 startAutoClicker:
@@ -72,10 +73,12 @@ F12::
 		; Set up everything
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
 		SetTimer, upgradeAll, %UPGRADE_ALL_DELAY_RATE%
+		SetTimer, upgradeExchange, %UPGRADE_EXCHANGE_DELAY_RATE%, 1
 	} else {
 		; Shut down everything
 		SetTimer, startAutoClicker, Off
 		SetTimer, upgradeAll, Off
+		SetTimer, upgradeExchange, Off
 
 		MsgBox, Stopped
 	}
