@@ -32,7 +32,7 @@ return
 upgradeExchange:
 	Sleep, 100
 	; open exchange
-	ControlClick, X130 Y180, ahk_exe RealmGrinderDesktop.exe
+	ControlClick, X130 Y180, ahk_exe RealmGrinderDesktop.exe,,,, NA
 	Sleep, 100
 
 	; Location of the top most upgrade
@@ -84,3 +84,4 @@ return
 F11::gosub, upgradeAll
 
 F10::gosub, upgradeExchange
+F9:: ControlClick, X130 Y180, ahk_exe RealmGrinderDesktop.exe,,,, NA
