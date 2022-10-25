@@ -6,8 +6,8 @@ CLICK_DELAY_RATE := 100 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
 UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between getting the token exchange upgrades
 
-MANA_RECHARGE_RATE := 60.17
-MAX_MANA_CAPACITY := 4207
+MANA_RECHARGE_RATE := 70.66
+MAX_MANA_CAPACITY := 4411
 
 MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 ; Repeating subroutines for performing clicks
@@ -31,7 +31,7 @@ upgradeAll:
 	distanceToNextUpgrade := 50
 
 	; Click individual upgrades
-	For i in range(8) {
+	For i in range(9) {
 		Sleep, 50
 		Click(upgradeXPosition, upgradeYPosition)
 		upgradeYPosition -= distanceToNextUpgrade
@@ -72,9 +72,9 @@ return
 
 ; The spell combo
 spellCycle:
-	; Cast Holy Light
+	; Cast Call to Arms
 	Sleep, 50
-	Click(1000, 280)
+	Click(1000, 230)
 	Sleep, 50
 
 	; Cast God's Hand
