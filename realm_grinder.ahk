@@ -24,16 +24,29 @@ CastSpell(spellSlot, amount := 1){
 BuyBuildingUpgrade(upgradeSlot){
 	; Location of the top most building upgrade
 	buildingUpgradePosition := {"X": 1200, "Y": 50}
-	distanceToNextBuildingUpgrade := 60
+	distanceToNextUpgrade := 60
 
 	; Location of the upgrade
 	upgradeXPosition := buildingUpgradePosition["X"]
-	upgradeYPosition := buildingUpgradePosition["Y"] + (distanceToNextBuildingUpgrade * upgradeSlot)
+	upgradeYPosition := buildingUpgradePosition["Y"] + (distanceToNextUpgrade * upgradeSlot)
 
 	; Buy upgrade
 	Click(upgradeXPosition, upgradeYPosition)
 }
 
+BuyExchangeTokenUpgrade(upgradeSlot){
+	; Location of the top most exchange token upgrade
+	exchangeUpgradePosition := {"X": 880, "Y": 300}
+	distanceToNextUpgrade := 50
+
+	; Location of the upgrade
+	upgradeXPosition := exchangeUpgradePosition["X"]
+	upgradeYPosition := exchangeUpgradePosition["Y"] + (distanceToNextUpgrade * upgradeSlot)
+
+	; Buy upgrade
+	Click(upgradeXPosition, upgradeYPosition)
+	upgradeYPosition += distanceToNextUpgrade
+}
 
 DisplayToolTip(text, duration := 1000){
 	ToolTip, %text%
@@ -70,26 +83,16 @@ upgradeExchange:
 	Sleep, 100
 	; open exchange
 	Click(130, 180)
-	Sleep, 100
 
-	; Location of the top most upgrade
-	upgradeXPosition := 880
-	upgradeYPosition := 300
-
-	distanceToNextUpgrade := 50
-
-	; Click individual upgrades
+	; get the upgrades individually
 	For i in range(6) {
-		; Skip the Angel upgrade
-		if (i == 0) {
-			upgradeYPosition += distanceToNextUpgrade
+		; skip the Angel upgrade
+		if (i == 0)
 			continue
-		}
 
-		Sleep, 50
-		Click(upgradeXPosition, upgradeYPosition)
-		upgradeYPosition += distanceToNextUpgrade
-		Sleep, 50
+		Sleep, 100
+		BuyExchangeTokenUpgrade(i)
+		Sleep, 100
 	}
 
 	; close exchange
