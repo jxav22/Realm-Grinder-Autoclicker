@@ -31,7 +31,7 @@ upgradeAll:
 	distanceToNextUpgrade := 50
 
 	; Click individual upgrades
-	For i in range(8) {
+	For i in range(9) {
 		Sleep, 50
 		Click(upgradeXPosition, upgradeYPosition)
 		upgradeYPosition -= distanceToNextUpgrade
