@@ -17,9 +17,7 @@ Click(X, Y){
 
 CastSpell(spellSlot, amount := 1){
 	for i in range(amount){
-		Sleep, 50
 		ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
-		Sleep, 50
 	}
 }
 
@@ -39,7 +37,9 @@ BuyBuildingUpgrade(upgradeSlot){
 ; The spell combo
 spellCycle:
 	; Cast Tax Collection
+	Sleep, 50
 	CastSpell(1, 3)
+	Sleep, 50
 return
 
 startAutoClicker:

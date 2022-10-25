@@ -53,10 +53,9 @@ upgradeAll:
 	Sleep, 50
 
 	for i in range(10, 3, -1){
-		ToolTip, %i%
-		Sleep, 500
+		Sleep, 50
 		BuyBuildingUpgrade(i)
-		Sleep, 500
+		Sleep, 50
 	}
 return
 
