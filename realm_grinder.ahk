@@ -13,6 +13,8 @@ F12::
 	isProgramStarted := !isProgramStarted
 
 	if isProgramStarted {
+		MsgBox, Started
+
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
 	} else {
 		SetTimer, startAutoClicker, Off
