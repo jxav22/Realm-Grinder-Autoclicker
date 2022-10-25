@@ -97,7 +97,7 @@ F12::
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
 		SetTimer, upgradeAll, %UPGRADE_ALL_DELAY_RATE%
 		SetTimer, upgradeExchange, %UPGRADE_EXCHANGE_DELAY_RATE%, 1
-		; SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 2
+		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 2
 	} else {
 		; Shut down everything
 		SetTimer, startAutoClicker, Off
