@@ -5,7 +5,7 @@
 
 ; The faction list, as visible in the token upgrade panel
 FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
-CURRENT_FACTION := "DEMON"
+CURRENT_FACTION := "ELVEN"
 
 CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 120 * 1000 ; Delay between upgrading everything
@@ -105,8 +105,16 @@ upgradeExchange:
 	Sleep, 50
 return
 
+abdicate:
+return
+
 ; Main code
 isProgramStarted := false
+
+F8::
+	DisplayToolTip("ABDICATING...", 500)
+	gosub, abdicate
+return
 
 F9::
 	DisplayToolTip("RUNNING SPELLS...", 500)
