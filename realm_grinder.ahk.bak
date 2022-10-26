@@ -105,16 +105,91 @@ upgradeExchange:
 	Sleep, 50
 return
 
+BuyUpgrade(upgradeRow, upgradeColumn){
+	; Location of the top left most upgrade
+	exchangeUpgradePosition := {"X": 127, "Y": 177}
+	distanceToNextUpgrade := 60
+
+	; Location of the upgrade
+	upgradeXPosition := exchangeUpgradePosition["X"] + (distanceToNextUpgrade * upgradeColumn)
+	upgradeYPosition := exchangeUpgradePosition["Y"] + (distanceToNextUpgrade * upgradeRow)
+
+	; Buy upgrade
+	Click(upgradeXPosition, upgradeYPosition)
+}
+
 abdicate:
 	Sleep, 1000
 
-	; click abdication button
+	; click the abdication button
 	Click(220, 55)
-	Sleep, 1000
+	Sleep, 100
 
 	; confirm abdication
 	Click(590, 490)
-	Sleep, 1000
+	Sleep, 100
+
+	; click BUY ALL twice
+	for i in range(2){
+		Click(310, 90)
+		Sleep, 100
+	}
+
+	; switch to BUY 1
+	for i in range(3){
+		Click(1000, 690)
+		Sleep, 100
+	}
+
+	; buy 10 farms
+	for i in range(10){
+		BuyBuildingUpgrade(0)
+		Sleep, 100
+	}
+
+	; buy proof of good deed
+	BuyUpgrade(0, 1)
+	Sleep, 100
+
+	; switch to BUY 10
+	Click(1000, 690)
+	Sleep, 100
+
+	; buy 90 farms
+	for i in range(9){
+		BuyBuildingUpgrade(0)
+		Sleep, 100
+	}
+
+	; switch to BUY 100
+	Click(1000, 690)
+	Sleep, 100
+
+	; buy 100 of each beginner building
+	Sleep, 500
+	BuyBuildingUpgrade(1)
+	Sleep, 500
+	BuyBuildingUpgrade(2)
+	Sleep, 500
+
+	; farm coins
+	for i in range(100){
+		gosub, startAutoClicker
+		Sleep, 50
+	}
+
+	gosub, upgradeAll
+
+	; farm coins
+	for i in range(300){
+		gosub, startAutoClicker
+		Sleep, 50
+	}
+
+	; buy Elven trade treaty
+	Sleep, 500
+	BuyUpgrade(0, 2)
+	Sleep, 100
 return
 
 ; Main code
