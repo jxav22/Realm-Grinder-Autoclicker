@@ -119,7 +119,7 @@ BuyUpgrade(upgradeRow, upgradeColumn){
 }
 
 abdicate:
-	Sleep, 1000
+	Sleep, 500
 
 	; click the abdication button
 	Click(220, 55)
@@ -144,7 +144,7 @@ abdicate:
 	; buy 10 farms
 	for i in range(10){
 		BuyBuildingUpgrade(0)
-		Sleep, 100
+		Sleep, 500
 	}
 
 	; buy proof of good deed
@@ -158,7 +158,7 @@ abdicate:
 	; buy 90 farms
 	for i in range(9){
 		BuyBuildingUpgrade(0)
-		Sleep, 100
+		Sleep, 500
 	}
 
 	; switch to BUY 100
@@ -181,13 +181,13 @@ abdicate:
 	gosub, upgradeAll
 
 	; farm coins
-	for i in range(250){
+	for i in range(300){
 		gosub, startAutoClicker
 		Sleep, 50
 	}
 
 	; buy Elven trade treaty
-	Sleep, 500
+	Sleep, 1000
 	BuyUpgrade(0, 2)
 	Sleep, 100
 return
