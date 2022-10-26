@@ -181,13 +181,13 @@ abdicate:
 	gosub, upgradeAll
 
 	; farm coins
-	for i in range(300){
+	for i in range(500){
 		gosub, startAutoClicker
 		Sleep, 50
 	}
 
 	; buy Elven trade treaty
-	Sleep, 1000
+	Sleep, 5000
 	BuyUpgrade(0, 2)
 	Sleep, 100
 return
