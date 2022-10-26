@@ -104,11 +104,26 @@ return
 ; Main code
 isProgramStarted := false
 
+F9::
+	DisplayToolTip("RUNNING SPELLS...", 500)
+	gosub, spellCycle
+return
+
+F10::
+	DisplayToolTip("UPGRADING TOKENS...", 500)
+	gosub, upgradeExchange
+return
+
+F11::
+	DisplayToolTip("PURCHASING UPGRADES...", 500)
+	gosub, upgradeAll
+return
+
 F12::
 	isProgramStarted := !isProgramStarted
 
 	if isProgramStarted {
-		DisplayToolTip("STARTED AUTO MANAGEMENT")
+		DisplayToolTip("STARTED AUTOMATIC GAME MANAGEMENT")
 
 		; Set up everything
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
@@ -121,21 +136,6 @@ F12::
 		SetTimer, upgradeAll, Off
 		SetTimer, upgradeExchange, Off
 
-		DisplayToolTip("STOPPED AUTO")
+		DisplayToolTip("STOPPED AUTOMATIC GAME MANAGEMENT")
 	}
-return
-
-F11::
-	DisplayToolTip("PURCHASING UPGRADES...", 500)
-	gosub, upgradeAll
-return
-
-F10::
-	DisplayToolTip("UPGRADING TOKENS...", 500)
-	gosub, upgradeExchange
-return
-
-F9::
-	DisplayToolTip("RUNNING SPELLS...", 500)
-	gosub, spellCycle
 return

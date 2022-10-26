@@ -73,7 +73,7 @@ upgradeAll:
 	Sleep, 50
 
 	; get the upgrades individually
-	for i in range(10, 3, -1){
+	for i in range(11, 3, -1){
 		Sleep, 100
 		BuyBuildingUpgrade(i)
 		Sleep, 100
