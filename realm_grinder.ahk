@@ -5,7 +5,7 @@
 
 ; The faction list, as visible in the token upgrade panel
 FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
-CURRENT_FACTION := "ELVEN"
+CURRENT_FACTION := "UNDEAD"
 
 CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 2 * 60 * 1000 ; Delay between upgrading everything
@@ -158,8 +158,8 @@ abdicate:
 		Sleep, 500
 	}
 
-	; buy proof of good deed
-	BuyUpgrade(0, 1)
+	; buy proof of evil deed
+	BuyUpgrade(0, 2)
 	Sleep, 500
 
 	; switch to BUY 10
@@ -189,8 +189,8 @@ abdicate:
 
 	FarmClicks(500)
 
-	; buy Elven trade treaty
-	Sleep, 500
+	; buy Undead trade treaty
+	Sleep, 3000
 	BuyUpgrade(0, 2)
 	Sleep, 500
 return
