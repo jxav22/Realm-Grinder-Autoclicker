@@ -106,7 +106,15 @@ upgradeExchange:
 return
 
 abdicate:
-	DisplayToolTip("YEAH", 500)
+	Sleep, 1000
+
+	; click abdication button
+	Click(220, 55)
+	Sleep, 1000
+
+	; confirm abdication
+	Click(590, 490)
+	Sleep, 1000
 return
 
 ; Main code
