@@ -29,6 +29,19 @@ CastSpell(spellSlot, amount := 1){
 	}
 }
 
+BuyUpgrade(upgradeRow, upgradeColumn){
+	; Location of the top left most upgrade
+	upgradePosition := {"X": 127, "Y": 177}
+	distanceToNextUpgrade := 60
+
+	; Location of the upgrade
+	upgradeXPosition := upgradePosition["X"] + (distanceToNextUpgrade * upgradeColumn)
+	upgradeYPosition := upgradePosition["Y"] + (distanceToNextUpgrade * upgradeRow)
+
+	; Buy upgrade
+	Click(upgradeXPosition, upgradeYPosition)
+}
+
 BuyBuildingUpgrade(upgradeSlot){
 	; Location of the top most building upgrade
 	buildingUpgradePosition := {"X": 1200, "Y": 80}
@@ -104,19 +117,6 @@ upgradeExchange:
 	Click(970, 180)
 	Sleep, 50
 return
-
-BuyUpgrade(upgradeRow, upgradeColumn){
-	; Location of the top left most upgrade
-	exchangeUpgradePosition := {"X": 127, "Y": 177}
-	distanceToNextUpgrade := 60
-
-	; Location of the upgrade
-	upgradeXPosition := exchangeUpgradePosition["X"] + (distanceToNextUpgrade * upgradeColumn)
-	upgradeYPosition := exchangeUpgradePosition["Y"] + (distanceToNextUpgrade * upgradeRow)
-
-	; Buy upgrade
-	Click(upgradeXPosition, upgradeYPosition)
-}
 
 abdicate:
 	Sleep, 500
