@@ -130,26 +130,26 @@ abdicate:
 	Sleep, 500
 	; close exchange (HANDLED POTENTIAL EDGE CASE)
 	Click(970, 180)
-	Sleep, 50
+	Sleep, 500
 
 	; click the abdication button
 	Click(220, 55)
-	Sleep, 100
+	Sleep, 500
 
 	; confirm abdication
 	Click(590, 490)
-	Sleep, 100
+	Sleep, 500
 
 	; click BUY ALL twice
 	for i in range(2){
 		Click(310, 90)
-		Sleep, 100
+		Sleep, 500
 	}
 
 	; switch to BUY 1
 	for i in range(3){
 		Click(1000, 690)
-		Sleep, 100
+		Sleep, 500
 	}
 
 	; buy 10 farms
@@ -160,11 +160,11 @@ abdicate:
 
 	; buy proof of good deed
 	BuyUpgrade(0, 1)
-	Sleep, 100
+	Sleep, 500
 
 	; switch to BUY 10
 	Click(1000, 690)
-	Sleep, 100
+	Sleep, 500
 
 	; buy 90 farms
 	for i in range(9){
@@ -174,7 +174,7 @@ abdicate:
 
 	; switch to BUY 100
 	Click(1000, 690)
-	Sleep, 100
+	Sleep, 500
 
 	; buy 100 of each beginner building
 	Sleep, 500
@@ -190,9 +190,9 @@ abdicate:
 	FarmClicks(500)
 
 	; buy Elven trade treaty
-	Sleep, 5000
+	Sleep, 500
 	BuyUpgrade(0, 2)
-	Sleep, 100
+	Sleep, 500
 return
 
 ; Main code
