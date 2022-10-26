@@ -4,16 +4,15 @@
 ; Preferences
 
 ; The faction list, as visible in the token upgrade panel
-FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL","GOBLIN", "UNDEAD", "DEMON"]
+FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
 CURRENT_FACTION := "ANGEL"
 
 CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
 UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between getting the token exchange upgrades
 
-MANA_RECHARGE_RATE := 21.1
-MAX_MANA_CAPACITY := 1295
-
+MANA_RECHARGE_RATE := 70
+MAX_MANA_CAPACITY := 9000
 MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 
 ; Program code starts here
@@ -24,7 +23,9 @@ Click(X, Y){
 
 CastSpell(spellSlot, amount := 1){
 	for i in range(amount){
+		Sleep, 50
 		ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
+		Sleep, 50
 	}
 }
 
@@ -62,11 +63,12 @@ DisplayToolTip(text, duration := 1000){
 
 ; casts this cycle of spells every time mana recharges to full
 spellCycle:
-	; CAST NOTHING
-	; cast Fairy Chanting
-	; Sleep, 50
-	; CastSpell(4)
-	Sleep, 50
+	CastSpell(2)
+	CastSpell(4)
+
+	CastSpell(1, 30)
+	gosub, upgradeAll
+	CastSpell(1, 40)
 return
 
 startAutoClicker:
@@ -94,7 +96,7 @@ upgradeExchange:
 
 	; get the upgrades individually
 	For i in FACTION_LIST {
-		; skip the Angel upgrade
+		; skip the current faction
 		if (FACTION_LIST[i] == CURRENT_FACTION)
 			continue
 
