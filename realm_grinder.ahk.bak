@@ -2,12 +2,12 @@
 #Include range.ahk
 
 ; Preferences
-CLICK_DELAY_RATE := 100 ; Delay between clicks in miliseconds
+CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
 UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between getting the token exchange upgrades
 
 MANA_RECHARGE_RATE := 21.1
-MAX_MANA_CAPACITY := 1269
+MAX_MANA_CAPACITY := 1295
 
 MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 
@@ -24,7 +24,7 @@ CastSpell(spellSlot, amount := 1){
 
 BuyBuildingUpgrade(upgradeSlot){
 	; Location of the top most building upgrade
-	buildingUpgradePosition := {"X": 1200, "Y": 50}
+	buildingUpgradePosition := {"X": 1200, "Y": 80}
 	distanceToNextUpgrade := 60
 
 	; Location of the upgrade
@@ -56,9 +56,10 @@ DisplayToolTip(text, duration := 1000){
 
 ; casts this cycle of spells every time mana recharges to full
 spellCycle:
+	; CAST NOTHING
 	; cast Fairy Chanting
-	Sleep, 50
-	CastSpell(4)
+	; Sleep, 50
+	; CastSpell(4)
 	Sleep, 50
 return
 
@@ -73,7 +74,7 @@ upgradeAll:
 	Sleep, 50
 
 	; get the upgrades individually
-	for i in range(10, 3, -1){
+	for i in range(2, -1, -1){
 		Sleep, 100
 		BuyBuildingUpgrade(i)
 		Sleep, 100
