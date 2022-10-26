@@ -2,6 +2,11 @@
 #Include range.ahk
 
 ; Preferences
+
+; The faction list, as visible in the token upgrade panel
+FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL","GOBLIN", "UNDEAD", "DEMON"]
+CURRENT_FACTION := "ANGEL"
+
 CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
 UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between getting the token exchange upgrades
@@ -12,6 +17,7 @@ MAX_MANA_CAPACITY := 1295
 MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 
 ; Program code starts here
+
 Click(X, Y){
 	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
 }
@@ -74,7 +80,7 @@ upgradeAll:
 	Sleep, 50
 
 	; get the upgrades individually
-	for i in range(2, -1, -1){
+	for i in range(10, 2, -1){
 		Sleep, 100
 		BuyBuildingUpgrade(i)
 		Sleep, 100
@@ -87,13 +93,13 @@ upgradeExchange:
 	Click(130, 180)
 
 	; get the upgrades individually
-	For i in range(6) {
-		; skip the Angel upgrade
-		if (i == 0)
+	For i in FACTION_LIST {
+		; skip the current faction
+		if (FACTION_LIST[i] == CURRENT_FACTION)
 			continue
 
 		Sleep, 100
-		BuyExchangeTokenUpgrade(i)
+		BuyExchangeTokenUpgrade(i - 1)
 		Sleep, 100
 	}
 
