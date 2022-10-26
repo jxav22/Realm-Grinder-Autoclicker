@@ -5,14 +5,14 @@
 
 ; The faction list, as visible in the token upgrade panel
 FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
-CURRENT_FACTION := "ANGEL"
+CURRENT_FACTION := "DEMON"
 
 CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
-UPGRADE_ALL_DELAY_RATE := 20000 ; Delay between upgrading everything
-UPGRADE_EXCHANGE_DELAY_RATE := 180000 ; Delay between getting the token exchange upgrades
+UPGRADE_ALL_DELAY_RATE := 120 * 1000 ; Delay between upgrading everything
+UPGRADE_EXCHANGE_DELAY_RATE := 180 * 1000 ; Delay between getting the token exchange upgrades
 
-MANA_RECHARGE_RATE := 70
-MAX_MANA_CAPACITY := 9000
+MANA_RECHARGE_RATE := 5
+MAX_MANA_CAPACITY := 1000
 MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 
 ; Program code starts here
@@ -63,12 +63,7 @@ DisplayToolTip(text, duration := 1000){
 
 ; casts this cycle of spells every time mana recharges to full
 spellCycle:
-	CastSpell(2)
 	CastSpell(4)
-
-	CastSpell(1, 30)
-	gosub, upgradeAll
-	CastSpell(1, 40)
 return
 
 startAutoClicker:
@@ -144,6 +139,7 @@ F12::
 		SetTimer, startAutoClicker, Off
 		SetTimer, upgradeAll, Off
 		SetTimer, upgradeExchange, Off
+		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, Off
 
 		DisplayToolTip("STOPPED AUTOMATIC GAME MANAGEMENT")
 	}
