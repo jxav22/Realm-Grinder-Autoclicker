@@ -8,8 +8,9 @@ FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
 CURRENT_FACTION := "ELVEN"
 
 CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
-UPGRADE_ALL_DELAY_RATE := 120 * 1000 ; Delay between upgrading everything
-UPGRADE_EXCHANGE_DELAY_RATE := 180 * 1000 ; Delay between getting the token exchange upgrades
+UPGRADE_ALL_DELAY_RATE := 2 * 60 * 1000 ; Delay between upgrading everything
+UPGRADE_EXCHANGE_DELAY_RATE := 3 * 60 * 1000 ; Delay between getting the token exchange upgrades
+ABDICATION_RATE := 30 * 60 * 1000 ; Delay between abdications
 
 MANA_RECHARGE_RATE := 5
 MAX_MANA_CAPACITY := 1000
@@ -19,6 +20,13 @@ MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 
 Click(X, Y){
 	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
+}
+
+FarmClicks(clickAmount){
+	for i in range(clickAmount){
+		gosub, startAutoClicker
+		Sleep, %CLICK_DELAY_RATE%
+	}
 }
 
 CastSpell(spellSlot, amount := 1){
@@ -120,6 +128,9 @@ return
 
 abdicate:
 	Sleep, 500
+	; close exchange (HANDLED POTENTIAL EDGE CASE)
+	Click(970, 180)
+	Sleep, 50
 
 	; click the abdication button
 	Click(220, 55)
@@ -172,19 +183,11 @@ abdicate:
 	BuyBuildingUpgrade(2)
 	Sleep, 500
 
-	; farm coins
-	for i in range(100){
-		gosub, startAutoClicker
-		Sleep, 50
-	}
+	FarmClicks(100)
 
 	gosub, upgradeAll
 
-	; farm coins
-	for i in range(500){
-		gosub, startAutoClicker
-		Sleep, 50
-	}
+	FarmClicks(500)
 
 	; buy Elven trade treaty
 	Sleep, 5000
@@ -226,12 +229,14 @@ F12::
 		SetTimer, upgradeAll, %UPGRADE_ALL_DELAY_RATE%
 		SetTimer, upgradeExchange, %UPGRADE_EXCHANGE_DELAY_RATE%, 2
 		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 1
+		SetTimer, abdicate, %ABDICATION_RATE%, 3
 	} else {
 		; Shut down everything
 		SetTimer, startAutoClicker, Off
 		SetTimer, upgradeAll, Off
 		SetTimer, upgradeExchange, Off
 		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, Off
+		SetTimer, abdicate, Off
 
 		DisplayToolTip("STOPPED AUTOMATIC GAME MANAGEMENT")
 	}
