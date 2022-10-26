@@ -95,13 +95,13 @@ upgradeExchange:
 	Click(130, 180)
 
 	; get the upgrades individually
-	For i in FACTION_LIST {
+	For index, FACTION in FACTION_LIST {
 		; skip the current faction
-		if (FACTION_LIST[i] == CURRENT_FACTION)
+		if (FACTION == CURRENT_FACTION)
 			continue
 
 		Sleep, 100
-		BuyExchangeTokenUpgrade(i - 1)
+		BuyExchangeTokenUpgrade(index - 1)
 		Sleep, 100
 	}
 
