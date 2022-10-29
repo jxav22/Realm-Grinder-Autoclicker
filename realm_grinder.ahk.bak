@@ -30,16 +30,16 @@ class ExchangeScreen
 
 	; Open the exchange token screen
 	open(){
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 		Click(130, 180)
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 	}
 
 	; Close the exchange token screen
 	close(){
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 		Click(970, 180)
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 	}
 
 	; Buy an upgrade
@@ -50,9 +50,9 @@ class ExchangeScreen
 		upgradeYPosition := this.topExchangeUpgradePosition["Y"] + (this.distanceToNextUpgrade * upgradeSlot)
 
 		; Buy upgrade
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 		Click(upgradeXPosition, upgradeYPosition)
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 	}
 
 	; Upgrade everything, except the current faction
@@ -83,15 +83,15 @@ class MainScreen
 		upgradeYPosition := this.topUpgradePosition["Y"] + (this.distanceToNextUpgrade * upgradeRow)
 
 		; Buy upgrade
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 		Click(upgradeXPosition, upgradeYPosition)
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 	}
 
 	buyAllUpgrades(){
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 		Click(310, 90)
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 	}
 
 	buyBuildingUpgrade(upgradeSlot){
@@ -100,25 +100,25 @@ class MainScreen
 		upgradeYPosition := this.topBuildingUpgradePosition["Y"] + (this.distanceToNextBuildingUpgrade * upgradeSlot)
 
 		; Buy upgrade
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 		Click(upgradeXPosition, upgradeYPosition)
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 	}
 
 	switchBuyAmount(){
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 		Click(1000, 690)
-		Sleep, %SHORT_PAUSE%
+		Sleep, % SHORT_PAUSE
 	}
 
 	abdicate(){
 		; click the abdication button
 		Click(220, 55)
-		Sleep, %LONG_PAUSE%
+		Sleep, % LONG_PAUSE
 
 		; confirm abdication
 		Click(590, 490)
-		Sleep, %LONG_PAUSE%
+		Sleep, % LONG_PAUSE
 	}
 }
 
@@ -135,9 +135,9 @@ FarmClicks(clickAmount){
 
 CastSpell(spellSlot, amount := 1){
 	for i in range(amount){
-		Sleep, 50
+		Sleep, % SHORT_PAUSE
 		ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
-		Sleep, 50
+		Sleep, % SHORT_PAUSE
 	}
 }
 
@@ -172,55 +172,55 @@ upgradeExchange:
 return
 
 abdicate:
-	Sleep, %SHORT_PAUSE%0
+	Sleep, % SHORT_PAUSE0
 	; close exchange (HANDLED POTENTIAL EDGE CASE)
 	ExchangeScreen.close()
-	Sleep, %LONG_PAUSE%
+	Sleep, % LONG_PAUSE
 
 	MainScreen.abdicate()
 
 	; click BUY ALL twice
 	for i in range(2){
 		MainScreen.buyAllUpgrades()
-		Sleep, %LONG_PAUSE%
+		Sleep, % LONG_PAUSE
 	}
 
 	; switch to BUY 1
 	for i in range(3){
 		MainScreen.switchBuyAmount()
-		Sleep, %LONG_PAUSE%
+		Sleep, % LONG_PAUSE
 	}
 
 	; buy 10 farms
 	for i in range(10){
 		MainScreen.buyBuildingUpgrade(0)
-		Sleep, %LONG_PAUSE%
+		Sleep, % LONG_PAUSE
 	}
 
 	; buy proof of good deed
 	MainScreen.buyUpgrade(0, 2)
-	Sleep, %LONG_PAUSE%
+	Sleep, % LONG_PAUSE
 
 	; switch to BUY 10
 	MainScreen.switchBuyAmount()
-	Sleep, %LONG_PAUSE%
+	Sleep, % LONG_PAUSE
 
 	; buy 90 farms
 	for i in range(9){
 		MainScreen.buyBuildingUpgrade(0)
-		Sleep, %LONG_PAUSE%
+		Sleep, % LONG_PAUSE
 	}
 
 	; switch to BUY 100
 	MainScreen.switchBuyAmount()
-	Sleep, %LONG_PAUSE%
+	Sleep, % LONG_PAUSE
 
 	; buy 100 of each beginner building
-	Sleep, %LONG_PAUSE%
+	Sleep, % LONG_PAUSE
 	MainScreen.buyBuildingUpgrade(1)
-	Sleep, %LONG_PAUSE%
+	Sleep, % LONG_PAUSE
 	MainScreen.buyBuildingUpgrade(2)
-	Sleep, %LONG_PAUSE%
+	Sleep, % LONG_PAUSE
 
 	; grind exchange tokens until it's > 20
 	FarmClicks(100)
@@ -233,7 +233,7 @@ abdicate:
 	; buy Elven trade treaty
 	Sleep, % LONG_PAUSE * 6
 	MainScreen.buyUpgrade(0, 3)
-	Sleep, %LONG_PAUSE%
+	Sleep, % LONG_PAUSE
 return
 
 ; Main code

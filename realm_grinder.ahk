@@ -172,7 +172,7 @@ upgradeExchange:
 return
 
 abdicate:
-	Sleep, % SHORT_PAUSE0
+	Sleep, % SHORT_PAUSE
 	; close exchange (HANDLED POTENTIAL EDGE CASE)
 	ExchangeScreen.close()
 	Sleep, % LONG_PAUSE
