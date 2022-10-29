@@ -64,6 +64,45 @@ class ExchangeScreen
 	}
 }
 
+class MainScreen
+{
+	; Location of the top most, and left most, upgrade
+	static topUpgradePosition := {"X": 127, "Y": 177}
+	static distanceToNextUpgrade := 60
+
+	; Location of the top most building upgrade
+	static topBuildingUpgradePosition := {"X": 1200, "Y": 80}
+	static distanceToNextBuildingUpgrade := 60
+
+	buyUpgrade(upgradeRow, upgradeColumn){
+		; Location of the upgrade
+		upgradeXPosition := this.topUpgradePosition["X"] + (this.distanceToNextUpgrade * upgradeColumn)
+		upgradeYPosition := this.topUpgradePosition["Y"] + (this.distanceToNextUpgrade * upgradeRow)
+
+		; Buy upgrade
+		Sleep, 100
+		Click(upgradeXPosition, upgradeYPosition)
+		Sleep, 100
+	}
+
+	buyAllUpgrades(){
+		Sleep, 100
+		Click(310, 90)
+		Sleep, 100
+	}
+
+	buyBuildingUpgrade(upgradeSlot){
+		; Location of the upgrade
+		upgradeXPosition := this.topBuildingUpgradePosition["X"]
+		upgradeYPosition := this.topBuildingUpgradePosition["Y"] + (this.distanceToNextBuildingUpgrade * upgradeSlot)
+
+		; Buy upgrade
+		Sleep, 100
+		Click(upgradeXPosition, upgradeYPosition)
+		Sleep, 100
+	}
+}
+
 Click(X, Y){
 	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
 }
@@ -83,32 +122,6 @@ CastSpell(spellSlot, amount := 1){
 	}
 }
 
-BuyUpgrade(upgradeRow, upgradeColumn){
-	; Location of the top left most upgrade
-	exchangeUpgradePosition := {"X": 127, "Y": 177}
-	distanceToNextUpgrade := 60
-
-	; Location of the upgrade
-	upgradeXPosition := exchangeUpgradePosition["X"] + (distanceToNextUpgrade * upgradeColumn)
-	upgradeYPosition := exchangeUpgradePosition["Y"] + (distanceToNextUpgrade * upgradeRow)
-
-	; Buy upgrade
-	Click(upgradeXPosition, upgradeYPosition)
-}
-
-BuyBuildingUpgrade(upgradeSlot){
-	; Location of the top most building upgrade
-	buildingUpgradePosition := {"X": 1200, "Y": 80}
-	distanceToNextUpgrade := 60
-
-	; Location of the upgrade
-	upgradeXPosition := buildingUpgradePosition["X"]
-	upgradeYPosition := buildingUpgradePosition["Y"] + (distanceToNextUpgrade * upgradeSlot)
-
-	; Buy upgrade
-	Click(upgradeXPosition, upgradeYPosition)
-}
-
 DisplayToolTip(text, duration := 1000){
 	ToolTip, %text%
 	Sleep, %duration%
@@ -125,16 +138,11 @@ startAutoClicker:
 return
 
 upgradeAll:
-	; click BUY ALL
-	Sleep, 50
-	Click(310, 90)
-	Sleep, 50
+	MainScreen.buyAllUpgrades()
 
 	; get the upgrades individually
 	for i in range(10, 2, -1){
-		Sleep, 100
-		BuyBuildingUpgrade(i)
-		Sleep, 100
+		MainScreen.buyBuildingUpgrade(i)
 	}
 return
 
@@ -172,12 +180,12 @@ abdicate:
 
 	; buy 10 farms
 	for i in range(10){
-		BuyBuildingUpgrade(0)
+		MainScreen.buyBuildingUpgrade(0)
 		Sleep, 500
 	}
 
 	; buy proof of evil deed
-	BuyUpgrade(0, 2)
+	MainScreen.buyUpgrade(0, 2)
 	Sleep, 500
 
 	; switch to BUY 10
@@ -186,7 +194,7 @@ abdicate:
 
 	; buy 90 farms
 	for i in range(9){
-		BuyBuildingUpgrade(0)
+		MainScreen.buyBuildingUpgrade(0)
 		Sleep, 500
 	}
 
@@ -196,9 +204,9 @@ abdicate:
 
 	; buy 100 of each beginner building
 	Sleep, 500
-	BuyBuildingUpgrade(1)
+	MainScreen.buyBuildingUpgrade(1)
 	Sleep, 500
-	BuyBuildingUpgrade(2)
+	MainScreen.buyBuildingUpgrade(2)
 	Sleep, 500
 
 	; grind exchange tokens until it's > 20
@@ -211,7 +219,7 @@ abdicate:
 
 	; buy Undead trade treaty
 	Sleep, 3000
-	BuyUpgrade(0, 2)
+	MainScreen.buyUpgrade(0, 2)
 	Sleep, 500
 return
 
