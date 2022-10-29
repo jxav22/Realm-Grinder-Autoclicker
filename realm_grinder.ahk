@@ -5,19 +5,64 @@
 ; Preferences
 
 ; The faction list, as visible in the token upgrade panel
-FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
-CURRENT_FACTION := "UNDEAD"
+global FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
+global CURRENT_FACTION := "FAIRY"
 
-CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
-UPGRADE_ALL_DELAY_RATE := 2 * 60 * 1000 ; Delay between upgrading everything
-UPGRADE_EXCHANGE_DELAY_RATE := 3 * 60 * 1000 ; Delay between getting the token exchange upgrades
-ABDICATION_RATE := 30 * 60 * 1000 ; Delay between abdications
+global CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
+global UPGRADE_ALL_DELAY_RATE := 2 * 60 * 1000 ; Delay between upgrading everything
+global UPGRADE_EXCHANGE_DELAY_RATE := 3 * 60 * 1000 ; Delay between getting the token exchange upgrades
+global ABDICATION_RATE := 30 * 60 * 1000 ; Delay between abdications
 
-MANA_RECHARGE_RATE := 5
-MAX_MANA_CAPACITY := 1000
-MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
+global MANA_RECHARGE_RATE := 5
+global MAX_MANA_CAPACITY := 1000
+global MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 
 ; Program code starts here
+
+class ExchangeScreen
+{
+	; Location of the top most exchange token upgrade, defined as the center of the upgrade button.
+	static topExchangeUpgradePosition := {"X": 880, "Y": 300}
+	static distanceToNextUpgrade := 50
+
+	; Open the exchange token screen
+	open(){
+		Sleep, 100
+		Click(130, 180)
+		Sleep, 100
+	}
+
+	; Close the exchange token screen
+	close(){
+		Sleep, 100
+		Click(970, 180)
+		Sleep, 100
+	}
+
+	; Buy an upgrade
+	; upgradeSlot = the order the upgrade is in, with the top upgrade having the position '0'.
+	upgrade(upgradeSlot){
+		; Location of the upgrade
+		upgradeXPosition := this.topExchangeUpgradePosition["X"]
+		upgradeYPosition := this.topExchangeUpgradePosition["Y"] + (this.distanceToNextUpgrade * upgradeSlot)
+
+		; Buy upgrade
+		Sleep, 100
+		Click(upgradeXPosition, upgradeYPosition)
+		Sleep, 100
+	}
+
+	; Upgrade everything, except the current faction
+	upgradeAll(){
+		for upgradeSlot, faction in FACTION_LIST {
+			; skip the current faction
+			if (faction == CURRENT_FACTION)
+				continue
+
+			this.upgrade(upgradeSlot - 1)
+		}
+	}
+}
 
 Click(X, Y){
 	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
@@ -25,8 +70,8 @@ Click(X, Y){
 
 FarmClicks(clickAmount){
 	for i in range(clickAmount){
-		gosub, startAutoClicker
 		Sleep, %CLICK_DELAY_RATE%
+		gosub, startAutoClicker
 	}
 }
 
@@ -64,19 +109,6 @@ BuyBuildingUpgrade(upgradeSlot){
 	Click(upgradeXPosition, upgradeYPosition)
 }
 
-BuyExchangeTokenUpgrade(upgradeSlot){
-	; Location of the top most exchange token upgrade
-	exchangeUpgradePosition := {"X": 880, "Y": 300}
-	distanceToNextUpgrade := 50
-
-	; Location of the upgrade
-	upgradeXPosition := exchangeUpgradePosition["X"]
-	upgradeYPosition := exchangeUpgradePosition["Y"] + (distanceToNextUpgrade * upgradeSlot)
-
-	; Buy upgrade
-	Click(upgradeXPosition, upgradeYPosition)
-}
-
 DisplayToolTip(text, duration := 1000){
 	ToolTip, %text%
 	Sleep, %duration%
@@ -107,24 +139,9 @@ upgradeAll:
 return
 
 upgradeExchange:
-	; open exchange
-	Sleep, 100
-	Click(130, 180)
-
-	; get the upgrades individually
-	For index, FACTION in FACTION_LIST {
-		; skip the current faction
-		if (FACTION == CURRENT_FACTION)
-			continue
-
-		Sleep, 100
-		BuyExchangeTokenUpgrade(index - 1)
-		Sleep, 100
-	}
-
-	; close exchange
-	Click(970, 180)
-	Sleep, 50
+	ExchangeScreen.open()
+	ExchangeScreen.upgradeAll()
+	ExchangeScreen.close()
 return
 
 abdicate:
