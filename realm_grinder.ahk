@@ -121,6 +121,16 @@ class MainScreen
 	}
 }
 
+class Spells
+{
+	cast(spellSLot, amount := 1){
+		for i in range(amount){
+		Sleep, % SHORT_PAUSE
+		ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
+		Sleep, % SHORT_PAUSE
+	}
+}
+
 Click(X, Y){
 	ControlClick, X%X% Y%Y%, ahk_exe RealmGrinderDesktop.exe,,,, NA
 }
@@ -132,14 +142,6 @@ FarmClicks(clickAmount){
 	}
 }
 
-CastSpell(spellSlot, amount := 1){
-	for i in range(amount){
-		Sleep, % SHORT_PAUSE
-		ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
-		Sleep, % SHORT_PAUSE
-	}
-}
-
 DisplayToolTip(text, duration := 1000){
 	ToolTip, %text%
 	Sleep, %duration%
@@ -148,7 +150,7 @@ DisplayToolTip(text, duration := 1000){
 
 ; casts this cycle of spells every time mana recharges to full
 spellCycle:
-	CastSpell(4)
+	Spells.cast(4)
 return
 
 startAutoClicker:
@@ -240,6 +242,10 @@ return
 
 ; Main code
 isProgramStarted := false
+
+F7::
+	ControlSend, ahk_parent, {Ctrl Down}, ahk_exe RealmGrinderDesktop.exe
+return
 
 F8::
 	DisplayToolTip("ABDICATING...", 500)
