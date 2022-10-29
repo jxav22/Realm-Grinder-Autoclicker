@@ -138,6 +138,8 @@ class Spells
 		spellXPosition := this.topSpellPosition["X"]
 		spellYPosition := this.topSpellPosition["Y"] + (this.distanceToNextSpell * spellSlot)
 
+		Sleep, % LONG_PAUSE * 4
+
 		ControlSend, ahk_parent, {Ctrl Down}, ahk_exe RealmGrinderDesktop.exe
 		Sleep, % LONG_PAUSE * 4
 
