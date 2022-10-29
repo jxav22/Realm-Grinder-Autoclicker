@@ -6,7 +6,7 @@
 
 ; The faction list, as visible in the token upgrade panel
 global FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
-global CURRENT_FACTION := "FAIRY"
+global CURRENT_FACTION := "ELVEN"
 
 global CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
 global UPGRADE_ALL_DELAY_RATE := 2 * 60 * 1000 ; Delay between upgrading everything
@@ -101,6 +101,22 @@ class MainScreen
 		Click(upgradeXPosition, upgradeYPosition)
 		Sleep, 100
 	}
+
+	switchBuyAmount(){
+		Sleep, 100
+		Click(1000, 690)
+		Sleep, 100
+	}
+
+	abdicate(){
+		; click the abdication button
+		Click(220, 55)
+		Sleep, 500
+
+		; confirm abdication
+		Click(590, 490)
+		Sleep, 500
+	}
 }
 
 Click(X, Y){
@@ -153,28 +169,22 @@ upgradeExchange:
 return
 
 abdicate:
-	Sleep, 500
+	Sleep, 1000
 	; close exchange (HANDLED POTENTIAL EDGE CASE)
-	Click(970, 180)
+	ExchangeScreen.close()
 	Sleep, 500
 
-	; click the abdication button
-	Click(220, 55)
-	Sleep, 500
-
-	; confirm abdication
-	Click(590, 490)
-	Sleep, 500
+	MainScreen.abdicate()
 
 	; click BUY ALL twice
 	for i in range(2){
-		Click(310, 90)
+		MainScreen.buyAllUpgrades()
 		Sleep, 500
 	}
 
 	; switch to BUY 1
 	for i in range(3){
-		Click(1000, 690)
+		MainScreen.switchBuyAmount()
 		Sleep, 500
 	}
 
@@ -184,12 +194,12 @@ abdicate:
 		Sleep, 500
 	}
 
-	; buy proof of evil deed
+	; buy proof of good deed
 	MainScreen.buyUpgrade(0, 2)
 	Sleep, 500
 
 	; switch to BUY 10
-	Click(1000, 690)
+	MainScreen.switchBuyAmount()
 	Sleep, 500
 
 	; buy 90 farms
@@ -199,7 +209,7 @@ abdicate:
 	}
 
 	; switch to BUY 100
-	Click(1000, 690)
+	MainScreen.switchBuyAmount()
 	Sleep, 500
 
 	; buy 100 of each beginner building
@@ -217,9 +227,9 @@ abdicate:
 
 	FarmClicks(500)
 
-	; buy Undead trade treaty
+	; buy Elven trade treaty
 	Sleep, 3000
-	MainScreen.buyUpgrade(0, 2)
+	MainScreen.buyUpgrade(0, 3)
 	Sleep, 500
 return
 
