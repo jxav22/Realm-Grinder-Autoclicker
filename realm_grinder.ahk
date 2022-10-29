@@ -1,4 +1,3 @@
-#MaxThreads 2
 #SingleInstance Force
 #Include range.ahk
 
@@ -9,7 +8,7 @@ global FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
 global CURRENT_FACTION := "ELVEN"
 
 global CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
-global UPGRADE_ALL_DELAY_RATE := 2 * 60 * 1000 ; Delay between upgrading everything
+global UPGRADE_ALL_DELAY_RATE := 1 * 60 * 1000 ; Delay between upgrading everything
 global UPGRADE_EXCHANGE_DELAY_RATE := 3 * 60 * 1000 ; Delay between getting the token exchange upgrades
 global ABDICATION_RATE := 30 * 60 * 1000 ; Delay between abdications
 
@@ -272,14 +271,14 @@ F12::
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
 		SetTimer, upgradeAll, %UPGRADE_ALL_DELAY_RATE%
 		SetTimer, upgradeExchange, %UPGRADE_EXCHANGE_DELAY_RATE%, 2
-		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 1
+		; SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 1
 		SetTimer, abdicate, %ABDICATION_RATE%, 3
 	} else {
 		; Shut down everything
 		SetTimer, startAutoClicker, Off
 		SetTimer, upgradeAll, Off
 		SetTimer, upgradeExchange, Off
-		SetTimer, spellCycle, Off
+		; SetTimer, spellCycle, Off
 		SetTimer, abdicate, Off
 
 		DisplayToolTip("STOPPED AUTOMATIC GAME MANAGEMENT")
