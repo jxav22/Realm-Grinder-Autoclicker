@@ -172,14 +172,14 @@ upgradeExchange:
 return
 
 abdicate:
-	Sleep, % SHORT_PAUSE0
+	Sleep, % SHORT_PAUSE
+
 	; close exchange (HANDLED POTENTIAL EDGE CASE)
 	ExchangeScreen.close()
 	Sleep, % LONG_PAUSE
 
 	MainScreen.abdicate()
 
-	; click BUY ALL twice
 	for i in range(2){
 		MainScreen.buyAllUpgrades()
 		Sleep, % LONG_PAUSE
@@ -216,7 +216,6 @@ abdicate:
 	Sleep, % LONG_PAUSE
 
 	; buy 100 of each beginner building
-	Sleep, % LONG_PAUSE
 	MainScreen.buyBuildingUpgrade(1)
 	Sleep, % LONG_PAUSE
 	MainScreen.buyBuildingUpgrade(2)
@@ -234,6 +233,10 @@ abdicate:
 	Sleep, % LONG_PAUSE * 6
 	MainScreen.buyUpgrade(0, 3)
 	Sleep, % LONG_PAUSE
+
+	; upgrade everything a few times
+	for i in range(3)
+		gosub, upgradeAll
 return
 
 ; Main code
