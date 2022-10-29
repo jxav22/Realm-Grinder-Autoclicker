@@ -1,3 +1,4 @@
+#MaxThreads 2
 #SingleInstance Force
 #Include range.ahk
 
@@ -183,8 +184,10 @@ abdicate:
 	BuyBuildingUpgrade(2)
 	Sleep, 500
 
+	; grind exchange tokens until it's > 20
 	FarmClicks(100)
 
+	; upgrade everything in the middle of grinding. Haven't confirmed if this has an actual benefit
 	gosub, upgradeAll
 
 	FarmClicks(500)
@@ -235,7 +238,7 @@ F12::
 		SetTimer, startAutoClicker, Off
 		SetTimer, upgradeAll, Off
 		SetTimer, upgradeExchange, Off
-		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, Off
+		SetTimer, spellCycle, Off
 		SetTimer, abdicate, Off
 
 		DisplayToolTip("STOPPED AUTOMATIC GAME MANAGEMENT")

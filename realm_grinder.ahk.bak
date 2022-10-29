@@ -1,3 +1,4 @@
+#MaxThreads 2
 #SingleInstance Force
 #Include range.ahk
 
@@ -5,7 +6,7 @@
 
 ; The faction list, as visible in the token upgrade panel
 FACTION_LIST := ["FAIRY", "ELVEN", "ANGEL", "GOBLIN", "UNDEAD", "DEMON"]
-CURRENT_FACTION := "ELVEN"
+CURRENT_FACTION := "UNDEAD"
 
 CLICK_DELAY_RATE := 50 ; Delay between clicks in miliseconds
 UPGRADE_ALL_DELAY_RATE := 2 * 60 * 1000 ; Delay between upgrading everything
@@ -35,6 +36,19 @@ CastSpell(spellSlot, amount := 1){
 		ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
 		Sleep, 50
 	}
+}
+
+BuyUpgrade(upgradeRow, upgradeColumn){
+	; Location of the top left most upgrade
+	exchangeUpgradePosition := {"X": 127, "Y": 177}
+	distanceToNextUpgrade := 60
+
+	; Location of the upgrade
+	upgradeXPosition := exchangeUpgradePosition["X"] + (distanceToNextUpgrade * upgradeColumn)
+	upgradeYPosition := exchangeUpgradePosition["Y"] + (distanceToNextUpgrade * upgradeRow)
+
+	; Buy upgrade
+	Click(upgradeXPosition, upgradeYPosition)
 }
 
 BuyBuildingUpgrade(upgradeSlot){
@@ -145,8 +159,8 @@ abdicate:
 		Sleep, 500
 	}
 
-	; buy proof of good deed
-	BuyUpgrade(0, 1)
+	; buy proof of evil deed
+	BuyUpgrade(0, 2)
 	Sleep, 500
 
 	; switch to BUY 10
@@ -170,14 +184,16 @@ abdicate:
 	BuyBuildingUpgrade(2)
 	Sleep, 500
 
+	; grind exchange tokens until it's > 20
 	FarmClicks(100)
 
+	; upgrade everything in the middle of grinding. Unconfirmed if this has an actual benefit
 	gosub, upgradeAll
 
 	FarmClicks(500)
 
-	; buy Elven trade treaty
-	Sleep, 500
+	; buy Undead trade treaty
+	Sleep, 3000
 	BuyUpgrade(0, 2)
 	Sleep, 500
 return
@@ -222,7 +238,7 @@ F12::
 		SetTimer, startAutoClicker, Off
 		SetTimer, upgradeAll, Off
 		SetTimer, upgradeExchange, Off
-		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, Off
+		SetTimer, spellCycle, Off
 		SetTimer, abdicate, Off
 
 		DisplayToolTip("STOPPED AUTOMATIC GAME MANAGEMENT")
