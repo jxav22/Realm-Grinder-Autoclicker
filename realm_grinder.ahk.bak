@@ -123,11 +123,29 @@ class MainScreen
 
 class Spells
 {
+	static topSpellPosition := {"X": 1010, "Y": 178}
+	static distanceToNextSpell := 50
+
 	cast(spellSLot, amount := 1){
 		for i in range(amount){
-		Sleep, % SHORT_PAUSE
-		ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
-		Sleep, % SHORT_PAUSE
+			Sleep, % SHORT_PAUSE
+			ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
+			Sleep, % SHORT_PAUSE
+		}
+	}
+
+	autoCast(spellSlot){
+		spellXPosition := this.topSpellPosition["X"]
+		spellYPosition := this.topSpellPosition["Y"] + (this.distanceToNextSpell * spellSlot)
+
+		ControlSend, ahk_parent, {Ctrl Down}, ahk_exe RealmGrinderDesktop.exe
+		Sleep, % LONG_PAUSE * 4
+
+		Click(spellXPosition, spellYPosition)
+		Sleep, % LONG_PAUSE * 4
+
+		ControlSend, ahk_parent, {Ctrl Up, ahk_exe RealmGrinderDesktop.exe
+		Sleep, % LONG_PAUSE * 4
 	}
 }
 
@@ -238,14 +256,13 @@ abdicate:
 	; upgrade everything a few times
 	for i in range(3)
 		gosub, upgradeAll
+
+	; autocast Holy Light
+	Spells.autoCast(2)
 return
 
 ; Main code
 isProgramStarted := false
-
-F7::
-	ControlSend, ahk_parent, {Ctrl Down}, ahk_exe RealmGrinderDesktop.exe
-return
 
 F8::
 	DisplayToolTip("ABDICATING...", 500)
