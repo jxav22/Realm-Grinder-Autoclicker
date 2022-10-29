@@ -12,7 +12,7 @@ global UPGRADE_ALL_DELAY_RATE := 1 * 60 * 1000 ; Delay between upgrading everyth
 global UPGRADE_EXCHANGE_DELAY_RATE := 3 * 60 * 1000 ; Delay between getting the token exchange upgrades
 global ABDICATION_RATE := 30 * 60 * 1000 ; Delay between abdications
 
-global MANA_RECHARGE_RATE := 5
+global MANA_RECHARGE_RATE := 28
 global MAX_MANA_CAPACITY := 1000
 global MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 
@@ -148,7 +148,7 @@ DisplayToolTip(text, duration := 1000){
 
 ; casts this cycle of spells every time mana recharges to full
 spellCycle:
-	CastSpell(4)
+	CastSpell(3)
 return
 
 startAutoClicker:
@@ -271,14 +271,14 @@ F12::
 		SetTimer, startAutoClicker, %CLICK_DELAY_RATE%, -1
 		SetTimer, upgradeAll, %UPGRADE_ALL_DELAY_RATE%
 		SetTimer, upgradeExchange, %UPGRADE_EXCHANGE_DELAY_RATE%, 2
-		; SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 1
+		SetTimer, spellCycle, %MANA_RECHARGE_TIME%, 1
 		SetTimer, abdicate, %ABDICATION_RATE%, 3
 	} else {
 		; Shut down everything
 		SetTimer, startAutoClicker, Off
 		SetTimer, upgradeAll, Off
 		SetTimer, upgradeExchange, Off
-		; SetTimer, spellCycle, Off
+		SetTimer, spellCycle, Off
 		SetTimer, abdicate, Off
 
 		DisplayToolTip("STOPPED AUTOMATIC GAME MANAGEMENT")
