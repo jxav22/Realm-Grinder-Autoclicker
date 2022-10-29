@@ -126,7 +126,7 @@ class Spells
 	static topSpellPosition := {"X": 1010, "Y": 178}
 	static distanceToNextSpell := 50
 
-	cast(spellSLot, amount := 1){
+	cast(spellSlot, amount := 1){
 		for i in range(amount){
 			Sleep, % SHORT_PAUSE
 			ControlSend, ahk_parent, %spellSlot%, ahk_exe RealmGrinderDesktop.exe
@@ -148,6 +148,15 @@ class Spells
 
 		ControlSend, ahk_parent, {Ctrl Up}, ahk_exe RealmGrinderDesktop.exe
 		Sleep, % LONG_PAUSE * 4
+	}
+
+	legacyCast(spellSlot){
+		spellXPosition := this.topSpellPosition["X"]
+		spellYPosition := this.topSpellPosition["Y"] + (this.distanceToNextSpell * spellSlot)
+
+		Sleep, % SHORT_PAUSE
+		Click(spellXPosition, spellYPosition)
+		Sleep, % SHORT_PAUSE
 	}
 }
 
@@ -265,6 +274,10 @@ return
 
 ; Main code
 isProgramStarted := false
+
+F7::
+	Spells.legacyCast(2)
+return
 
 F8::
 	DisplayToolTip("ABDICATING...", 500)
