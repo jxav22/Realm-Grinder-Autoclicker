@@ -144,7 +144,7 @@ class Spells
 		Click(spellXPosition, spellYPosition)
 		Sleep, % LONG_PAUSE * 4
 
-		ControlSend, ahk_parent, {Ctrl Up, ahk_exe RealmGrinderDesktop.exe
+		ControlSend, ahk_parent, {Ctrl Up}, ahk_exe RealmGrinderDesktop.exe
 		Sleep, % LONG_PAUSE * 4
 	}
 }
