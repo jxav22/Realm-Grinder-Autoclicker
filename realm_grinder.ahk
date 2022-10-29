@@ -22,8 +22,19 @@ global MANA_RECHARGE_TIME := Ceil(MAX_MANA_CAPACITY / MANA_RECHARGE_RATE) * 1000
 class ExchangeScreen
 {
 	; Location of the top most exchange token upgrade, defined as the center of the upgrade button.
-	static topExchangeUpgradePosition := {"X": 880, "Y": 300}
-	static distanceToNextUpgrade := 50
+	topExchangeUpgradePosition := {"X": 0, "Y": 0}
+	distanceToNextUpgrade := 50
+
+	__New(){
+		WinGetPos,,,windowWidth, windowHeight, ahk_exe RealmGrinderDesktop.exe
+
+		centerPixel := {"X": 0, "Y": 0}
+		centerPixel["X"] := Round(windowWidth / 2)
+		centerPixel["Y"] := Round(windowHeight / 2)
+
+		this.topExchangeUpgradePosition["X"] := centerPixel["X"] + 145 + 75
+		this.topExchangeUpgradePosition["Y"] := centerPixel["Y"] - 145 - 24
+	}
 
 	; Open the exchange token screen
 	open(){
@@ -59,7 +70,7 @@ class ExchangeScreen
 			if (faction == CURRENT_FACTION)
 				continue
 
-			this.upgrade(upgradeSlot - 1)
+			this.upgrade(upgradeSlot)
 		}
 	}
 }
@@ -147,9 +158,11 @@ upgradeAll:
 return
 
 upgradeExchange:
-	ExchangeScreen.open()
-	ExchangeScreen.upgradeAll()
-	ExchangeScreen.close()
+	exchangeScreen := new ExchangeScreen()
+
+	exchangeScreen.open()
+	exchangeScreen.upgradeAll()
+	exchangeScreen.close()
 return
 
 abdicate:
@@ -225,6 +238,11 @@ return
 
 ; Main code
 isProgramStarted := false
+
+F7::
+	WinGetPos,,,Width, Height, ahk_exe RealmGrinderDesktop.exe
+	MsgBox, %Width%, %Height%
+return
 
 F8::
 	DisplayToolTip("ABDICATING...", 500)
